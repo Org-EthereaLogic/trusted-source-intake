@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Five-file SQL pipeline: raw ingest, batch registry, quarantine rules, ready output, handoff summary
 - Seven named contract checks mirroring SQL quarantine logic in Python
-- Deterministic sample data generator with four enterprise failure scenarios
+- Deterministic sample data generator covering four intake scenarios: clean, schema drift, replay, and partial failure
 - Local demo metrics runner producing handoff summary and batch registry
 - Databricks Asset Bundle configuration with dev/prod targets
 - Lakeflow Declarative Pipeline resource definition
