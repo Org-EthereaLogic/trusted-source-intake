@@ -1,0 +1,27 @@
+bundle:
+  name: trusted-source-intake
+
+variables:
+  catalog:
+    default: main
+  schema:
+    default: trusted_source_intake
+  landing_path:
+    default: /Volumes/${var.catalog}/${var.schema}/landing
+  checkpoint_root:
+    default: /Volumes/${var.catalog}/${var.schema}/ops/checkpoints
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: ${workspace.host}
+
+  prod:
+    mode: production
+    workspace:
+      host: ${workspace.host}

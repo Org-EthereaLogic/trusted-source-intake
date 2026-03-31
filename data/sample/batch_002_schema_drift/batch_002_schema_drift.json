@@ -1,0 +1,85 @@
+[
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2000",
+    "customer_id": "CUST-300",
+    "order_total": 75.0,
+    "event_ts": "2026-03-16T04:00:00+00:00",
+    "product_category": "Electronics",
+    "region": "West",
+    "loyalty_tier": "Gold",
+    "_rescued_data": "{\"loyalty_tier\": \"Gold\"}"
+  },
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2001",
+    "customer_id": "CUST-301",
+    "order_total": 85.0,
+    "event_ts": "2026-03-16T05:00:00+00:00",
+    "product_category": "Electronics",
+    "region": "West",
+    "loyalty_tier": "Gold",
+    "_rescued_data": "{\"loyalty_tier\": \"Gold\"}"
+  },
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2002",
+    "customer_id": "CUST-302",
+    "order_total": 95.0,
+    "event_ts": "2026-03-16T06:00:00+00:00",
+    "product_category": "Electronics",
+    "region": "West",
+    "loyalty_tier": "Gold",
+    "_rescued_data": "{\"loyalty_tier\": \"Gold\"}"
+  },
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2010",
+    "customer_id": "CUST-310",
+    "order_total": null,
+    "event_ts": "2026-03-16T07:00:00+00:00",
+    "product_category": "Apparel",
+    "region": "East",
+    "_rescued_data": "{\"order_total\": \"N/A\"}"
+  },
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2011",
+    "customer_id": "CUST-311",
+    "order_total": null,
+    "event_ts": "2026-03-16T08:00:00+00:00",
+    "product_category": "Apparel",
+    "region": "East",
+    "_rescued_data": "{\"order_total\": \"N/A\"}"
+  },
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2012",
+    "customer_id": "CUST-312",
+    "order_total": null,
+    "event_ts": "2026-03-16T09:00:00+00:00",
+    "product_category": "Apparel",
+    "region": "East",
+    "_rescued_data": "{\"order_total\": \"N/A\"}"
+  },
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2020",
+    "customer_id": "CUST-320",
+    "order_total": 99.99,
+    "event_ts": null,
+    "product_category": "Home",
+    "region": "Central",
+    "_rescued_data": "{\"Event_TS\": \"2026-03-16T10:00:00+00:00\"}"
+  },
+  {
+    "batch_id": "B-002",
+    "order_id": "ORD-2021",
+    "customer_id": "CUST-321",
+    "order_total": 99.99,
+    "event_ts": null,
+    "product_category": "Home",
+    "region": "Central",
+    "_rescued_data": "{\"Event_TS\": \"2026-03-16T11:00:00+00:00\"}"
+  }
+]

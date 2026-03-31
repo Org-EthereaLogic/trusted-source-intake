@@ -1,0 +1,102 @@
+[
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1000",
+    "customer_id": "CUST-200",
+    "order_total": 50.0,
+    "event_ts": "2026-03-15T08:00:00+00:00",
+    "product_category": "Electronics",
+    "region": "West",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1001",
+    "customer_id": "CUST-201",
+    "order_total": 62.5,
+    "event_ts": "2026-03-15T09:00:00+00:00",
+    "product_category": "Apparel",
+    "region": "East",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1002",
+    "customer_id": "CUST-202",
+    "order_total": 75.0,
+    "event_ts": "2026-03-15T10:00:00+00:00",
+    "product_category": "Home",
+    "region": "Central",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1003",
+    "customer_id": "CUST-203",
+    "order_total": 87.5,
+    "event_ts": "2026-03-15T11:00:00+00:00",
+    "product_category": "Grocery",
+    "region": "South",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1004",
+    "customer_id": "CUST-204",
+    "order_total": 100.0,
+    "event_ts": "2026-03-15T12:00:00+00:00",
+    "product_category": "Auto",
+    "region": "North",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1005",
+    "customer_id": "CUST-205",
+    "order_total": 112.5,
+    "event_ts": "2026-03-15T13:00:00+00:00",
+    "product_category": "Electronics",
+    "region": "West",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1006",
+    "customer_id": "CUST-206",
+    "order_total": 125.0,
+    "event_ts": "2026-03-15T14:00:00+00:00",
+    "product_category": "Apparel",
+    "region": "East",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1007",
+    "customer_id": "CUST-207",
+    "order_total": 137.5,
+    "event_ts": "2026-03-15T15:00:00+00:00",
+    "product_category": "Home",
+    "region": "Central",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1008",
+    "customer_id": "CUST-208",
+    "order_total": 150.0,
+    "event_ts": "2026-03-15T16:00:00+00:00",
+    "product_category": "Grocery",
+    "region": "South",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  },
+  {
+    "batch_id": "B-001",
+    "order_id": "ORD-1009",
+    "customer_id": "CUST-209",
+    "order_total": 162.5,
+    "event_ts": "2026-03-15T17:00:00+00:00",
+    "product_category": "Auto",
+    "region": "North",
+    "_source_file_hint": "batch_003_replay_of_001.json"
+  }
+]

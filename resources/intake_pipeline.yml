@@ -1,0 +1,22 @@
+resources:
+  pipelines:
+    intake_pipeline:
+      name: "trusted-source-intake-${bundle.target}"
+      catalog: ${var.catalog}
+      target: ${var.schema}
+      development: true
+      channel: PREVIEW
+      configuration:
+        landing_path: ${var.landing_path}
+        checkpoint_root: ${var.checkpoint_root}
+      libraries:
+        - file:
+            path: ../src/lakeflow_sql/00_bronze_raw_ingest.sql
+        - file:
+            path: ../src/lakeflow_sql/10_ops_batch_registry.sql
+        - file:
+            path: ../src/lakeflow_sql/20_ops_quarantine_rows.sql
+        - file:
+            path: ../src/lakeflow_sql/30_bronze_ready.sql
+        - file:
+            path: ../src/lakeflow_sql/40_ops_handoff_summary.sql

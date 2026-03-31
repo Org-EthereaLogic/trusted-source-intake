@@ -1,0 +1,47 @@
+[
+  {
+    "batch_id": null,
+    "order_id": "ORD-4000",
+    "customer_id": "CUST-400",
+    "order_total": 25.0,
+    "event_ts": "2026-03-17T00:00:00+00:00",
+    "product_category": "Grocery",
+    "region": "South"
+  },
+  {
+    "batch_id": "B-004",
+    "order_id": null,
+    "customer_id": "CUST-401",
+    "order_total": 30.0,
+    "event_ts": "2026-03-17T01:00:00+00:00",
+    "product_category": "Auto",
+    "region": "North"
+  },
+  {
+    "batch_id": "B-004",
+    "order_id": "ORD-4002",
+    "customer_id": null,
+    "order_total": 35.0,
+    "event_ts": "2026-03-17T02:00:00+00:00",
+    "product_category": "Electronics",
+    "region": "West"
+  },
+  {
+    "batch_id": "B-004",
+    "order_id": "ORD-4003",
+    "customer_id": "CUST-403",
+    "order_total": -15.0,
+    "event_ts": "2026-03-17T03:00:00+00:00",
+    "product_category": "Apparel",
+    "region": "East"
+  },
+  {
+    "batch_id": "B-004",
+    "order_id": "ORD-4004",
+    "customer_id": "CUST-404",
+    "order_total": 40.0,
+    "event_ts": null,
+    "product_category": "Home",
+    "region": "Central"
+  }
+]

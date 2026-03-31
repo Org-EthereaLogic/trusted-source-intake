@@ -1,0 +1,16 @@
+resources:
+  jobs:
+    refresh_demo:
+      name: "trusted-source-intake-refresh-${bundle.target}"
+      tasks:
+        - task_key: seed_files
+          notebook_task:
+            notebook_path: ../notebooks/00_seed_demo_files.py
+            source: WORKSPACE
+
+        - task_key: run_pipeline
+          depends_on:
+            - task_key: seed_files
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.intake_pipeline.id}
+            full_refresh: true
