@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -19,10 +22,10 @@ jobs:
         python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -69,7 +72,7 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       ENFORCE_SNYK_SCAN: ${{ vars.ENFORCE_SNYK_SCAN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Skip Snyk unless explicitly enforced
         if: env.ENFORCE_SNYK_SCAN != 'true'
@@ -83,7 +86,7 @@ jobs:
 
       - name: Set up Python 3.12 for Snyk
         if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN != ''
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -111,7 +114,7 @@ jobs:
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Skip when Databricks secrets unavailable
         if: env.DATABRICKS_HOST == '' || env.DATABRICKS_TOKEN == ''
