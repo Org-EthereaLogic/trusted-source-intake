@@ -12,6 +12,8 @@ jobs:
     env:
       CODECOV_PROJECT_TOKEN: ${{ secrets.CODECOV_PROJECT_TOKEN }}
       CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+      ENFORCE_CODACY_COVERAGE: ${{ vars.ENFORCE_CODACY_COVERAGE }}
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
@@ -43,33 +45,63 @@ jobs:
           files: coverage.xml
           fail_ci_if_error: false
 
+      - name: Skip Codacy upload unless explicitly enforced
+        if: matrix.python-version == '3.12' && env.ENFORCE_CODACY_COVERAGE != 'true'
+        run: echo "Skipping Codacy upload — set ENFORCE_CODACY_COVERAGE=true with a valid Codacy token to enforce this check."
+
+      - name: Fail when Codacy enforcement is enabled without credentials
+        if: matrix.python-version == '3.12' && env.ENFORCE_CODACY_COVERAGE == 'true' && env.CODACY_PROJECT_TOKEN == '' && env.CODACY_API_TOKEN == ''
+        run: |
+          echo "::error::ENFORCE_CODACY_COVERAGE=true but no Codacy token is configured."
+          exit 1
+
       - name: Upload coverage to Codacy
-        if: matrix.python-version == '3.12' && env.CODACY_PROJECT_TOKEN != ''
-        continue-on-error: true
-        uses: codacy/codacy-coverage-reporter-action@v1
+        if: matrix.python-version == '3.12' && env.ENFORCE_CODACY_COVERAGE == 'true' && (env.CODACY_PROJECT_TOKEN != '' || env.CODACY_API_TOKEN != '')
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ env.CODACY_PROJECT_TOKEN }}
+          api-token: ${{ env.CODACY_API_TOKEN }}
           coverage-reports: coverage.xml
 
   snyk-security:
     runs-on: ubuntu-latest
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      ENFORCE_SNYK_SCAN: ${{ vars.ENFORCE_SNYK_SCAN }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Skip Snyk when token is unavailable
-        if: env.SNYK_TOKEN == ''
-        run: echo "Skipping Snyk — SNYK_TOKEN not configured."
+      - name: Skip Snyk unless explicitly enforced
+        if: env.ENFORCE_SNYK_SCAN != 'true'
+        run: echo "Skipping Snyk — set ENFORCE_SNYK_SCAN=true with a valid SNYK_TOKEN to enforce this check."
+
+      - name: Fail when Snyk enforcement is enabled without credentials
+        if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN == ''
+        run: |
+          echo "::error::ENFORCE_SNYK_SCAN=true but SNYK_TOKEN is not configured."
+          exit 1
+
+      - name: Set up Python 3.12 for Snyk
+        if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN != ''
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies for Snyk
+        if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN != ''
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up Snyk CLI
+        if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN != ''
+        uses: snyk/actions/setup@master
 
       - name: Run Snyk to check for vulnerabilities
-        if: env.SNYK_TOKEN != ''
-        continue-on-error: true
-        uses: snyk/actions/python@master
+        if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN != ''
         env:
           SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
+        run: snyk test --file=requirements.txt --package-manager=pip --command=python3 --severity-threshold=high
 
   validate-bundle:
     runs-on: ubuntu-latest
