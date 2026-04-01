@@ -6,6 +6,7 @@ resources:
       target: ${var.schema}
       development: true
       channel: PREVIEW
+      serverless: true
       configuration:
         landing_path: ${var.landing_path}
         checkpoint_root: ${var.checkpoint_root}

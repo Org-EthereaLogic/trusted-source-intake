@@ -18,7 +18,8 @@ AS SELECT
   current_timestamp()            AS ingest_ts
 FROM STREAM read_files(
   '${landing_path}',
-  format        => 'json',
-  rescuedDataColumn => '_rescued_data',
-  header        => 'true'
+  format             => 'json',
+  rescuedDataColumn  => '_rescued_data',
+  multiLine          => 'true',
+  schemaEvolutionMode => 'rescue'
 );

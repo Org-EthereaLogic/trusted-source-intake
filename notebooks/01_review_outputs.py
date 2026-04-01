@@ -8,13 +8,23 @@
 
 # COMMAND ----------
 
+dbutils.widgets.text("catalog", "main")
+dbutils.widgets.text("schema", "trusted_source_intake")
+catalog = dbutils.widgets.get("catalog")
+schema = dbutils.widgets.get("schema")
+spark.sql(f"USE CATALOG {catalog}")
+spark.sql(f"USE SCHEMA {schema}")
+print(f"Reviewing {catalog}.{schema}")
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 1. Handoff Summary — single-pane operational view
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * FROM main.trusted_source_intake.ops_handoff_summary;
+# MAGIC SELECT * FROM ops_handoff_summary;
 
 # COMMAND ----------
 
@@ -31,7 +41,7 @@
 # MAGIC   total_rows,
 # MAGIC   is_replay,
 # MAGIC   source_files
-# MAGIC FROM main.trusted_source_intake.ops_batch_registry
+# MAGIC FROM ops_batch_registry
 # MAGIC ORDER BY batch_first_seen_ts;
 
 # COMMAND ----------
@@ -51,7 +61,7 @@
 # MAGIC   quarantine_reasons,
 # MAGIC   is_replay_duplicate,
 # MAGIC   source_file_name
-# MAGIC FROM main.trusted_source_intake.ops_quarantine_rows
+# MAGIC FROM ops_quarantine_rows
 # MAGIC ORDER BY batch_id, source_file_name;
 
 # COMMAND ----------
@@ -65,7 +75,7 @@
 # MAGIC SELECT
 # MAGIC   batch_id,
 # MAGIC   COUNT(*) AS ready_rows
-# MAGIC FROM main.trusted_source_intake.bronze_ready
+# MAGIC FROM bronze_ready
 # MAGIC GROUP BY batch_id
 # MAGIC ORDER BY batch_id;
 
@@ -83,7 +93,7 @@
 # MAGIC   COUNT(*) AS row_count,
 # MAGIC   MIN(ingest_ts) AS first_ingest,
 # MAGIC   SUM(CASE WHEN _rescued_data IS NOT NULL THEN 1 ELSE 0 END) AS rescued_rows
-# MAGIC FROM main.trusted_source_intake.bronze_orders_raw
+# MAGIC FROM bronze_orders_raw
 # MAGIC GROUP BY batch_id, source_file_name
 # MAGIC ORDER BY batch_id, source_file_name;
 

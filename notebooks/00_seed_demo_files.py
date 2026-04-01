@@ -7,9 +7,13 @@
 
 # COMMAND ----------
 
-spark.sql("CREATE SCHEMA IF NOT EXISTS ${var.catalog}.${var.schema}")
-spark.sql("CREATE VOLUME IF NOT EXISTS ${var.catalog}.${var.schema}.landing")
-spark.sql("CREATE VOLUME IF NOT EXISTS ${var.catalog}.${var.schema}.ops")
+dbutils.widgets.text("catalog", "main")
+dbutils.widgets.text("schema", "trusted_source_intake")
+catalog = dbutils.widgets.get("catalog")
+schema = dbutils.widgets.get("schema")
+spark.sql(f"CREATE SCHEMA IF NOT EXISTS {catalog}.{schema}")
+spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{schema}.landing")
+spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{schema}.ops")
 
 # COMMAND ----------
 
@@ -22,7 +26,7 @@ from pathlib import Path
 
 LANDING_PATH = spark.conf.get(
     "pipeline.landing_path",
-    "/Volumes/main/trusted_source_intake/landing",
+    f"/Volumes/{catalog}/{schema}/landing",
 )
 
 REPO_SAMPLE_DIR = Path("data/sample")
