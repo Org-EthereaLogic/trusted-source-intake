@@ -25,6 +25,9 @@ docs = [
     "matplotlib>=3.7",
 ]
 
+[project.scripts]
+intake-demo = "intake.demo_metrics:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

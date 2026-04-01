@@ -28,6 +28,8 @@ coverage.xml
 
 # Generated images (regenerate with: python docs/generate_visuals.py)
 docs/images/*.png
+docs/executive_mode_report.md
+docs/executive_mode_report.html
 
 
 #Ignore insiders AI rules

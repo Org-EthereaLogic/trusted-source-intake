@@ -157,5 +157,11 @@ def print_demo_report() -> HandoffSummary:
     return summary
 
 
-if __name__ == "__main__":
+def main() -> int:
+    """Console entry point for the offline intake demo."""
     print_demo_report()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -104,16 +104,39 @@ For the full architecture diagram and design rationale, see [docs/architecture.m
 - **Databricks Asset Bundles** for source-controlled deployment and pipeline refresh.
 - The intake pattern is source-agnostic and applies to any enterprise ingestion pipeline regardless of source count.
 
+## Executive Mode
+
+Install Chapter One first. It is the portfolio entry point and contains:
+
+- `Open Executive Demo.command`
+- `scripts/executive_mode.py`
+- `docs/executive_mode.md`
+
+When Chapters 2 and 3 are cloned as sibling folders beside
+`trusted-source-intake`, the launcher can bootstrap them, run one guided demo
+per chapter, and write the executive report into `docs/`.
+
+The shortest path is:
+
+```bash
+python3 scripts/executive_mode.py all --open-report
+```
+
+You can also double-click `Open Executive Demo.command` on macOS.
+
 ## Reproducibility
+
+Use Python 3.10 or newer.
 
 ```bash
 git clone https://github.com/Org-EthereaLogic/trusted-source-intake.git
 cd trusted-source-intake
 
-python -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
 pip install -e ".[dev]"
-PYTHONPATH=src pytest tests/ -q    # Expected: 56 passed
-PYTHONPATH=src python -m intake.demo_metrics
+pytest tests/ -q     # Expected: 56 passed
+intake-demo
 ```
 
 ## Evidence Appendix
@@ -140,6 +163,9 @@ This validates the intake control pattern on one order-events source across four
 ## Part of a Series
 
 This is **Chapter 1** of the *Enterprise Data Trust* portfolio — a three-part body of work addressing the full lifecycle of data reliability in enterprise Databricks platforms.
+
+Install this chapter first if you want the portfolio launcher. It is the
+canonical home of `Open Executive Demo.command` and `scripts/executive_mode.py`.
 
 | Chapter | Focus | Repository |
 | ------- | ----- | ---------- |
