@@ -69,6 +69,32 @@ Quarantine ratio:  0.697
 
 Regression coverage: `PYTHONPATH=src pytest tests/ -q` completes with `56 passed`.
 
+## Decision / KPI contract
+
+**Business decision:** should downstream users trust today's landed data?
+
+The intake handoff summary answers that question with five KPIs:
+
+| KPI | Meaning |
+|-----|---------|
+| `total_landed` | Rows ingested from source files |
+| `total_ready` | Rows that passed all 7 contract checks and replay detection |
+| `total_quarantined` | Rows blocked with explicit reason arrays |
+| `replay_duplicates` | Rows from redelivered batches, blocked at the registry level |
+| `rescued_rows` | Rows with schema drift captured in `_rescued_data` |
+
+**Control rule:** only `bronze_ready` is downstream-safe. All other tables are operational surfaces for triage, audit, and replay investigation.
+
+## Why this pattern
+
+Raw ingest alone is not certification. A pipeline that absorbs every file without checking completeness, uniqueness, or schema conformance provides no basis for downstream trust.
+
+This pattern addresses three gaps that standard ingestion leaves open:
+
+- **Replay detection is business-level, not file-level.** The platform deduplicates files, but business teams resend the same batch under new filenames. The batch registry catches this.
+- **Quarantine uses explicit reasons, not silent filtering.** Every blocked row carries an array of named check failures. Nothing is quietly dropped.
+- **The handoff gate is a single view.** Operations teams inspect one summary table to decide whether today's data is safe to release.
+
 ## Architecture
 
 ```
@@ -113,6 +139,21 @@ PYTHONPATH=src python -m intake.demo_metrics
 ```
 
 For the full Databricks deployment path, see [docs/architecture.md](docs/architecture.md).
+
+## Validated in Databricks Free Edition
+
+The intake pipeline was deployed and executed in a live Databricks Free Edition workspace using serverless compute. The results below were captured from the SQL editor and pipeline UI after a full refresh of all four sample batches.
+
+| Screenshot | What it proves |
+|------------|---------------|
+| ![Seeded landing volume](docs/images/ch1/01_seeded_landing_volume.png) | 4 batch directories landed in the Unity Catalog volume |
+| ![Refresh success](docs/images/ch1/02_refresh_success.png) | Pipeline completed: 5 tables, 0 warnings, 0 failures |
+| ![Handoff summary](docs/images/ch1/03_handoff_summary.png) | 33 landed, 10 ready, 23 quarantined, 10 replay, 8 rescued |
+| ![Batch registry](docs/images/ch1/04_batch_registry_replay.png) | B-001 replay detected: file_count=2, is_replay=true |
+| ![Quarantine reasons](docs/images/ch1/05_quarantine_reasons.png) | 23 rows quarantined with explicit reason arrays |
+| ![Ready rows](docs/images/ch1/06_ready_rows.png) | B-001 = 10 ready rows — only the clean batch passes |
+
+**Scope boundary:** this validates the intake control pattern on one order-events source across four sample batches in a Free Edition workspace. It does not constitute production-scale proof or multi-source verification.
 
 ## Additional documentation
 
