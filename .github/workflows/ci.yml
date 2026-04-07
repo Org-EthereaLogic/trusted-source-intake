@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
@@ -62,7 +65,7 @@ jobs:
 
       - name: Upload coverage to Codacy
         if: matrix.python-version == '3.12' && env.ENFORCE_CODACY_COVERAGE == 'true' && (env.CODACY_PROJECT_TOKEN != '' || env.CODACY_API_TOKEN != '')
-        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699 # v1.3.0
         with:
           project-token: ${{ env.CODACY_PROJECT_TOKEN }}
           api-token: ${{ env.CODACY_API_TOKEN }}
@@ -100,7 +103,7 @@ jobs:
 
       - name: Set up Snyk CLI
         if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN != ''
-        uses: snyk/actions/setup@master
+        uses: snyk/actions/setup@9adf32b1121593767fc3c057af55b55db032dc04 # v1.0.0
 
       - name: Run Snyk to check for vulnerabilities
         if: env.ENFORCE_SNYK_SCAN == 'true' && env.SNYK_TOKEN != ''
@@ -124,7 +127,7 @@ jobs:
 
       - name: Install Databricks CLI
         if: env.DATABRICKS_HOST != '' && env.DATABRICKS_TOKEN != ''
-        uses: databricks/setup-cli@v0.228.0
+        uses: databricks/setup-cli@48d22c081d17bd30f76c01672190d4cdd25ceab5 # v0.228.0
 
       - name: Validate dev bundle
         if: env.DATABRICKS_HOST != '' && env.DATABRICKS_TOKEN != ''
