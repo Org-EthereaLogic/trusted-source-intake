@@ -6,6 +6,10 @@ Built by Anthony Johnson | EthereaLogic LLC
 
 ---
 
+> If this pattern is useful to your team, consider [starring the repo](https://github.com/Org-EthereaLogic/trusted-source-intake) — it helps others in the Databricks community find it.
+
+---
+
 Source systems silently send duplicate batches, drop required fields, or change schemas without notice — and downstream consumers start using the data before anyone has validated it.
 
 This chapter demonstrates a governed intake gate that catches schema drift, blocks duplicate replays, quarantines invalid records with explicit reasons, and certifies what is safe for downstream consumption.
